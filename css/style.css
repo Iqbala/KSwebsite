@@ -89,6 +89,10 @@ section {
 .header .logo {
     color: var(--main-color);
     font-size: 2.3rem;
+    background-image: url(../image/logo.png) no-repeat;
+    background-size: contain;
+    width: 150px;
+    height: 80px;
 }
 
 .header .logo i {
