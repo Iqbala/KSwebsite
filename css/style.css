@@ -70,6 +70,7 @@ section {
 .btn:hover {
     border-radius: var(--border-radius-hover);
     border: var(--border-hover);
+    color: #FFDDAAA;
 }
 
 /* HEADER */
