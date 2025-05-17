@@ -359,12 +359,12 @@ section.success {
 .about-image {
   width: 100%;
   max-width: 400px; /* Prevents image from getting too big on desktop */
-  height: auto;
+  height: 70%;
   border-radius: 8px; /* Optional for rounded corners */
 }
 
 /* Optional: Add spacing on small screens */
-@media (max-width: 600px) {
+@media (max-width: 300px) {
   .about-image-container {
     padding: 10px;
   }
