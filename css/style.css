@@ -187,8 +187,7 @@ section {
 /* ABOUT */
 
 .about .row {
-     background-position: center;
-    background-size: cover;
+     scroll-margin-top: 80px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
