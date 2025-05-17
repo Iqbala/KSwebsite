@@ -94,8 +94,8 @@ section {
     font-size: 2.3rem;
     background-image: url(../image/logo.png) no-repeat;
     background-size: contain;
-    width: 50px;
-    height: 30px;
+    width: 10px;
+    height: 5px;
 }
 
 .header .logo i {
@@ -103,7 +103,7 @@ section {
 }
 
 .header .navbar a {
-    margin: 0 1rem;
+    margin: 1rem;
     font-size: 1.7rem;
     color: var(--main-color);
      font-family: 'Shrikhand';
