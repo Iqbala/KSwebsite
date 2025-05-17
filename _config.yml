@@ -34,7 +34,7 @@ color:
 footer:
   copyright: Kup Shup Co.
   location: Seattle, WA
-  social: Around the Web
+  social: socials
   credits: Credits
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
@@ -43,17 +43,10 @@ social:
     url: https://www.instagram.com/kup.shup/
   - title: tiktok
     url: https://www.tiktok.com/@kup.shup
-  - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/jekyll
-  - title: bitbucket
-    url: http://bitbucket.org/jekyll
-  - title: github
-    url: http://github.com/jekyll
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: 3481 Melrose Place
-  - line: Beverly Hills, CA 90210
+  - line: Seattle, WA
 
 # Credits content
 credits: 'Freelancer is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.'
