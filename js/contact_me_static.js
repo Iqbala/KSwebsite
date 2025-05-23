@@ -51,3 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
+window.onbeforeunload = () => {
+  for(const form of document.getElementsByTagName('form')) {
+    form.reset();
+  }
+}
