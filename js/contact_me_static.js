@@ -21,9 +21,33 @@ $(function() {
 $('#name').focus(function() {
     $('#success').html('');
 });
-
+/* Contact form Thank you message   */
 <script>
-function EnquireButton() {
-   alert("Thank you for your enquiry!");
-}
-</script> 
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const thankYou = document.getElementById("thankYouMessage");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        form.reset();
+        thankYou.style.display = "block";
+      } else {
+        alert("Oops! There was a problem submitting your form.");
+      }
+    }).catch(error => {
+      alert("Oops! There was a problem submitting your form.");
+    });
+  });
+});
+</script>
