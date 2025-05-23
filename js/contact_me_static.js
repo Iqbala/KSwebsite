@@ -21,3 +21,9 @@ $(function() {
 $('#name').focus(function() {
     $('#success').html('');
 });
+
+<script>
+function EnquireButton() {
+   alert("Thank you for your enquiry!");
+}
+</script> 
