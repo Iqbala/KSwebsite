@@ -17,15 +17,21 @@ p.small {
 }
 
 a,
-a:hover{
-    opacity: 0.5;
-    filter: alpha(opacity=40);
-},
+a:hover,
 a:focus,
 a:active,
 a.active {
     outline: 0;
     color: #{{ site.color.primary }};
+}
+
+img.logo {
+    opacity:0.5;
+    transition: opacity 0.3s ease;
+}
+
+img.logo:hover {
+    opacity: 1.0;
 }
 
 h1,
