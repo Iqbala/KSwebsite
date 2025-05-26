@@ -26,12 +26,14 @@ a.active {
 }
 
 img.logo {
-    opacity:0.5;
     transition: opacity 0.3s ease;
+    position:absolute:
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 img.logo:hover {
-    opacity: 1.0;
+    opacity: 0.5;
 }
 
 h1,
@@ -92,7 +94,7 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: #{{ site.color.primary }};
+    background: #FFF;
 }
 
 header .container {
@@ -160,7 +162,7 @@ header .intro-text .skills {
 .navbar {
     text-transform: uppercase;
     font-family: 'Shrikhand';
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .navbar a:focus {
@@ -368,7 +370,7 @@ section.success {
 .about-image {
   width: 100%;
   max-width: 400px; /* Prevents image from getting too big on desktop */
-  height: 70%;
+  height: 30%;
   border-radius: 8px; /* Optional for rounded corners */
 }
 
@@ -504,6 +506,7 @@ footer .footer-below {
 
 .navbar-nav>.active>a {
     background-color: #{{ site.color.secondary-dark }} !important;
+    text-decoration:underline;
 }
 
 /* Fix modal mouse wheel issues */
