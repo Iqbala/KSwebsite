@@ -148,6 +148,8 @@ header .intro-text .skills {
         -webkit-transition: all .3s;
         -moz-transition: all .3s;
         transition: all .3s;
+        align-items: center;
+        
     }
 
     .navbar-fixed-top.navbar-shrink {
