@@ -1198,7 +1198,7 @@ video {
   max-width: 100%;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   .dark\:border-neutral-800 {
     --tw-border-opacity: 1;
     border-color: rgb(38 38 38 / var(--tw-border-opacity));
@@ -1253,7 +1253,7 @@ video {
     --tw-placeholder-opacity: 1;
     color: rgb(156 163 175 / var(--tw-placeholder-opacity));
   }
-}
+} */
 
 @media (min-width: 640px) {
   .sm\:col-span-2 {
