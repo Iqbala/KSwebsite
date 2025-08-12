@@ -313,35 +313,52 @@
   (function () {
     const form = document.getElementById('event-form');
     const modal = document.getElementById('success-modal');
+    const panel = modal.querySelector('[role="dialog"]');
     const closeBtn = document.getElementById('success-close');
     const drinksGroup = document.getElementById('drinks-group');
     const drinksError = document.getElementById('drinks-error');
+
+    // Ensure modal is a direct child of <body>
+    if (modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
+    }
 
     function atLeastOneDrinkChecked() {
       return !!drinksGroup.querySelector('input[type="checkbox"]:checked');
     }
 
-    // Show/Hide modal helpers
     function showModal() {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      // focus the close button for accessibility
+      document.documentElement.classList.add('overflow-hidden'); // lock scroll
+
+      // small fade/scale-in
+      requestAnimationFrame(() => {
+        panel.classList.remove('opacity-0', 'scale-95');
+      });
+
       setTimeout(() => closeBtn.focus(), 0);
     }
+
     function hideModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      // animate out
+      panel.classList.add('opacity-0', 'scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.documentElement.classList.remove('overflow-hidden');
+      }, 150);
     }
 
-    // Validate drinks on change
     drinksGroup.addEventListener('change', () => {
-      if (atLeastOneDrinkChecked()) {
-        drinksError.classList.add('hidden');
-      }
+      if (atLeastOneDrinkChecked()) drinksError.classList.add('hidden');
     });
 
     form.addEventListener('submit', (e) => {
-      // Custom validation for "Select Your Drinks"
+      // If you're using Formspree with fetch, keep your preventDefault + fetch branch.
+      // For mailto, don't prevent default; just run validation and show the modal.
+
+      // Validate drinks
       if (!atLeastOneDrinkChecked()) {
         e.preventDefault();
         drinksError.classList.remove('hidden');
@@ -349,25 +366,19 @@
         return;
       }
 
-      // Let the mailto: action run (opens email client)
-      // Still show the success modal and reset the form for a smooth UX
-      // Note: some browsers may switch focus to the mail client; the modal will still appear on the page.
+      // For mailto: let the browser open the email client, then show UI
       setTimeout(() => {
-        showModal();
         form.reset();
+        showModal();
       }, 200);
     });
 
-    // Close modal
     closeBtn.addEventListener('click', hideModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) hideModal();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') hideModal();
-    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
   })();
 </script>
+
 
 </body>
 
