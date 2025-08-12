@@ -309,40 +309,35 @@
   </div>
 </div>
 
+<!-- put this just before </body> -->
 <script>
   (function () {
-    const form = document.getElementById('event-form');
-    const modal = document.getElementById('success-modal');
-    const panel = modal.querySelector('[role="dialog"]');
+    const form = document.getElementById('event-form');       // your form id
+    const modal = document.getElementById('success-modal');   // your modal wrapper
+    const panel = modal?.querySelector('[role="dialog"]');
     const closeBtn = document.getElementById('success-close');
-    const drinksGroup = document.getElementById('drinks-group');
+    const drinksGroup = document.getElementById('drinks-group');   // checkbox group
     const drinksError = document.getElementById('drinks-error');
 
-    // Ensure modal is a direct child of <body>
-    if (modal.parentElement !== document.body) {
-      document.body.appendChild(modal);
-    }
+    // (optional) ensure modal is a direct child of <body> for proper centering
+    if (modal && modal.parentElement !== document.body) document.body.appendChild(modal);
 
     function atLeastOneDrinkChecked() {
+      if (!drinksGroup) return true; // if you removed the drinks group
       return !!drinksGroup.querySelector('input[type="checkbox"]:checked');
     }
 
     function showModal() {
+      if (!modal) return;
       modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      document.documentElement.classList.add('overflow-hidden'); // lock scroll
-
-      // small fade/scale-in
-      requestAnimationFrame(() => {
-        panel.classList.remove('opacity-0', 'scale-95');
-      });
-
-      setTimeout(() => closeBtn.focus(), 0);
+      modal.classList.add('flex');           // center with flex
+      if (panel) panel.classList.remove('opacity-0','scale-95'); // if you added the tiny animation
+      document.documentElement.classList.add('overflow-hidden');
+      setTimeout(() => closeBtn?.focus(), 0);
     }
-
     function hideModal() {
-      // animate out
-      panel.classList.add('opacity-0', 'scale-95');
+      if (!modal) return;
+      if (panel) panel.classList.add('opacity-0','scale-95');
       setTimeout(() => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
@@ -350,35 +345,50 @@
       }, 150);
     }
 
-    drinksGroup.addEventListener('change', () => {
-      if (atLeastOneDrinkChecked()) drinksError.classList.add('hidden');
-    });
+    // Validate and submit via fetch (prevents redirect)
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // <- stops the default POST + redirect
 
-    form.addEventListener('submit', (e) => {
-      // If you're using Formspree with fetch, keep your preventDefault + fetch branch.
-      // For mailto, don't prevent default; just run validation and show the modal.
-
-      // Validate drinks
+      // Custom validation: at least one drink
       if (!atLeastOneDrinkChecked()) {
-        e.preventDefault();
-        drinksError.classList.remove('hidden');
-        drinksGroup.querySelector('input[type="checkbox"]').focus();
+        drinksError?.classList.remove('hidden');
+        drinksGroup?.querySelector('input[type="checkbox"]')?.focus();
         return;
+      } else {
+        drinksError?.classList.add('hidden');
       }
 
-      // For mailto: let the browser open the email client, then show UI
-      setTimeout(() => {
-        form.reset();
-        showModal();
-      }, 200);
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          showModal();
+        } else {
+          // Formspree returns JSON with errors on 4xx; show a friendly message
+          try {
+            const data = await res.json();
+            alert(data.errors?.map(e => e.message).join('\n') || 'Submission failed. Please try again.');
+          } catch {
+            alert('Submission failed. Please try again or email kupshupseattle@gmail.com.');
+          }
+        }
+      } catch (err) {
+        alert('Network error. Please try again or email kupshupseattle@gmail.com.');
+      }
     });
 
-    closeBtn.addEventListener('click', hideModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    // Modal controls
+    closeBtn?.addEventListener('click', hideModal);
+    modal?.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
   })();
 </script>
-
 
 </body>
 
