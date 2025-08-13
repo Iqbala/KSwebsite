@@ -204,20 +204,112 @@
   </div>
 
   <!-- Select Your Drinks (requires at least one) -->
-  <div>
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Select Your Drinks</label>
-    <div class="space-y-2" id="drinks-group">
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Karak Chai" class="mr-2">Karak Chai</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Kashmiri Chai" class="mr-2">Kashmiri Chai</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Masala Chai" class="mr-2">Masala Chai</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Coffee" class="mr-2">Coffee</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Hot Chocolate" class="mr-2">Hot Chocolate</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Lemonade" class="mr-2">Lemonade</label>
-      <label class="flex items-center"><input type="checkbox" name="drinks[]" value="Other" class="mr-2">Other</label>
-      <p id="drinks-error" class="hidden text-sm text-red-600">Please select at least one drink.</p>
+  <!-- Select your package -->
+<div>
+  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Select your package</label>
+
+  <div id="package-group" class="space-y-2">
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="MINI MASALA" class="accent-black" />
+      MINI MASALA
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="GARMA GATHERING" class="accent-black" />
+      GARMA GATHERING
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="KARAK MEHFIL" class="accent-black" />
+      KARAK MEHFIL
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="ROYAL ELAICHI" class="accent-black" />
+      ROYAL ELAICHI
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="SNACKS CART" class="accent-black" />
+      SNACKS CART
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" name="package" value="CART RENTAL" class="accent-black" />
+      CART RENTAL
+    </label>
+  </div>
+  <p id="package-error" class="hidden text-sm text-red-600 mt-2">Please select a package.</p>
+
+  <!-- Sub-options: show ONLY when the matching package is picked -->
+
+  <!-- MINI MASALA (2 drinks) -->
+  <div id="sub-mini" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select two drink options<span class="text-red-600"> *</span></p>
+    <div class="grid gap-2 sm:grid-cols-2" data-required="2">
+      <label class="flex items-center gap-2"><input type="checkbox" name="mini_drinks[]" value="Karak Chai">Karak Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mini_drinks[]" value="Masala Chai">Masala Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mini_drinks[]" value="Kashmiri Chai">Kashmiri Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mini_drinks[]" value="Mango Lemonade">Mango Lemonade</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mini_drinks[]" value="Nimbu Pani">Nimbu Pani</label>
     </div>
+    <p id="mini-error" class="hidden text-sm text-red-600 mt-1">Please select exactly two drinks.</p>
   </div>
 
+  <!-- GARMA GATHERING (2 drinks) -->
+  <div id="sub-garma" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select two drink options<span class="text-red-600"> *</span></p>
+    <div class="grid gap-2 sm:grid-cols-2" data-required="2">
+      <label class="flex items-center gap-2"><input type="checkbox" name="garma_drinks[]" value="Karak Chai">Karak Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="garma_drinks[]" value="Masala Chai">Masala Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="garma_drinks[]" value="Kashmiri Chai">Kashmiri Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="garma_drinks[]" value="Mango Lemonade">Mango Lemonade</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="garma_drinks[]" value="Nimbu Pani">Nimbu Pani</label>
+    </div>
+    <p id="garma-error" class="hidden text-sm text-red-600 mt-1">Please select exactly two drinks.</p>
+  </div>
+
+  <!-- KARAK MEHFIL (3 drinks) -->
+  <div id="sub-mehfil" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select three drink options<span class="text-red-600"> *</span></p>
+    <div class="grid gap-2 sm:grid-cols-2" data-required="3">
+      <label class="flex items-center gap-2"><input type="checkbox" name="mehfil_drinks[]" value="Karak Chai">Karak Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mehfil_drinks[]" value="Masala Chai">Masala Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mehfil_drinks[]" value="Kashmiri Chai">Kashmiri Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mehfil_drinks[]" value="Mango Lemonade">Mango Lemonade</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="mehfil_drinks[]" value="Nimbu Pani">Nimbu Pani</label>
+    </div>
+    <p id="mehfil-error" class="hidden text-sm text-red-600 mt-1">Please select exactly three drinks.</p>
+  </div>
+
+  <!-- ROYAL ELAICHI (4 drinks) -->
+  <div id="sub-royal" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select four drink options<span class="text-red-600"> *</span></p>
+    <div class="grid gap-2 sm:grid-cols-2" data-required="4">
+      <label class="flex items-center gap-2"><input type="checkbox" name="royal_drinks[]" value="Karak Chai">Karak Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="royal_drinks[]" value="Masala Chai">Masala Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="royal_drinks[]" value="Kashmiri Chai">Kashmiri Chai</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="royal_drinks[]" value="Mango Lemonade">Mango Lemonade</label>
+      <label class="flex items-center gap-2"><input type="checkbox" name="royal_drinks[]" value="Nimbu Pani">Nimbu Pani</label>
+    </div>
+    <p id="royal-error" class="hidden text-sm text-red-600 mt-1">Please select exactly four drinks.</p>
+  </div>
+
+  <!-- SNACKS CART (choose one) -->
+  <div id="sub-snacks" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select one option<span class="text-red-600"> *</span></p>
+    <div class="space-y-2">
+      <label class="flex items-center gap-2"><input type="radio" name="snacks_choice" value="I will provide snacks">I will provide snacks</label>
+      <label class="flex items-center gap-2"><input type="radio" name="snacks_choice" value="Snacks to be provided">Snacks to be provided</label>
+    </div>
+    <p id="snacks-error" class="hidden text-sm text-red-600 mt-1">Please select one snacks option.</p>
+  </div>
+
+  <!-- CART RENTAL (choose one) -->
+  <div id="sub-rental" class="hidden mt-4">
+    <p class="text-sm font-medium mb-2">Select one rental option<span class="text-red-600"> *</span></p>
+    <div class="space-y-2">
+      <label class="flex items-center gap-2"><input type="radio" name="rental_choice" value="1-2 hour cart rental">1–2 hour cart rental</label>
+      <label class="flex items-center gap-2"><input type="radio" name="rental_choice" value="2-4 hour cart rental">2–4 hour cart rental</label>
+    </div>
+    <p id="rental-error" class="hidden text-sm text-red-600 mt-1">Please select one rental option.</p>
+  </div>
+</div>
   <!-- Notes (optional) -->
   <div>
     <label for="notes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Additional Notes</label>
