@@ -404,25 +404,23 @@
 <!-- put this just before </body> -->
 <script>
 (function () {
-  const form = document.getElementById('event-form');           // your form
-  const drinksGroup = document.getElementById('drinks-group');  // checkbox group
-  const drinksError = document.getElementById('drinks-error');
+  const form = document.getElementById('event-form');
 
-  // --- Build a bullet-proof modal as a portal under <body> ---
+  // =========================
+  // Modal (same as before)
+  // =========================
   const modal = document.createElement('div');
   modal.id = 'success-modal';
   modal.setAttribute('role', 'presentation');
-  // inline styles override any conflicting CSS
   modal.style.position = 'fixed';
   modal.style.inset = '0';
-  modal.style.display = 'none';             // hidden by default
+  modal.style.display = 'none';
   modal.style.alignItems = 'center';
   modal.style.justifyContent = 'center';
   modal.style.background = 'rgba(0,0,0,.5)';
   modal.style.zIndex = '99999';
   modal.style.padding = '1rem';
 
-  // panel
   const panel = document.createElement('div');
   panel.setAttribute('role', 'dialog');
   panel.setAttribute('aria-modal', 'true');
@@ -459,22 +457,108 @@
     document.documentElement.classList.remove('overflow-hidden');
   }
 
-  function atLeastOneDrinkChecked() {
-    if (!drinksGroup) return true;
-    return !!drinksGroup.querySelector('input[type="checkbox"]:checked');
+  // =========================
+  // PACKAGE + SUB-OPTIONS UI
+  // =========================
+  const pkgGroup = document.getElementById('package-group');
+  const pkgError = document.getElementById('package-error');
+
+  const subMini   = document.getElementById('sub-mini');   // requires 2 (name mini_drinks[])
+  const subGarma  = document.getElementById('sub-garma');  // requires 2 (name garma_drinks[])
+  const subMehfil = document.getElementById('sub-mehfil'); // requires 3 (name mehfil_drinks[])
+  const subRoyal  = document.getElementById('sub-royal');  // requires 4 (name royal_drinks[])
+  const subSnacks = document.getElementById('sub-snacks'); // radio name snacks_choice
+  const subRental = document.getElementById('sub-rental'); // radio name rental_choice
+
+  function hideAllSub() {
+    [subMini, subGarma, subMehfil, subRoyal, subSnacks, subRental].forEach(el => {
+      if (!el) return;
+      el.classList.add('hidden');
+      // clear selections when switching packages
+      el.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(i => { i.checked = false; });
+      // hide any error under this section
+      el.querySelectorAll('p[id$="-error"]').forEach(p => p.classList.add('hidden'));
+    });
   }
 
-  // Validate + submit via fetch to stop redirect
+  function selectedPackageValue() {
+    const checked = pkgGroup?.querySelector('input[name="package"]:checked');
+    return checked?.value || null;
+  }
+
+  pkgGroup?.addEventListener('change', () => {
+    pkgError?.classList.add('hidden');
+    hideAllSub();
+    switch (selectedPackageValue()) {
+      case 'MINI MASALA':      subMini?.classList.remove('hidden');  break;
+      case 'GARMA GATHERING':  subGarma?.classList.remove('hidden'); break;
+      case 'KARAK MEHFIL':     subMehfil?.classList.remove('hidden'); break;
+      case 'ROYAL ELAICHI':    subRoyal?.classList.remove('hidden'); break;
+      case 'SNACKS CART':      subSnacks?.classList.remove('hidden'); break;
+      case 'CART RENTAL':      subRental?.classList.remove('hidden'); break;
+    }
+  });
+
+  // exact count helper for drink pickers
+  function exactCountChecked(container, checkboxName, requiredCount, errorId) {
+    if (!container) return true;
+    const count = container.querySelectorAll(`input[name="${checkboxName}"]:checked`).length;
+    const errorEl = document.getElementById(errorId);
+    if (count === requiredCount) {
+      errorEl?.classList.add('hidden');
+      return true;
+    } else {
+      errorEl?.classList.remove('hidden');
+      return false;
+    }
+  }
+
+  // master validator for package + sub-options
+  function validatePackageAndSubs() {
+    const val = selectedPackageValue();
+    if (!val) {
+      pkgError?.classList.remove('hidden');
+      pkgGroup?.querySelector('input[name="package"]')?.focus();
+      return false;
+    }
+    switch (val) {
+      case 'MINI MASALA':
+        return exactCountChecked(subMini, 'mini_drinks[]', 2, 'mini-error');
+      case 'GARMA GATHERING':
+        return exactCountChecked(subGarma, 'garma_drinks[]', 2, 'garma-error');
+      case 'KARAK MEHFIL':
+        return exactCountChecked(subMehfil, 'mehfil_drinks[]', 3, 'mehfil-error');
+      case 'ROYAL ELAICHI':
+        return exactCountChecked(subRoyal, 'royal_drinks[]', 4, 'royal-error');
+      case 'SNACKS CART': {
+        const picked = subSnacks?.querySelector('input[name="snacks_choice"]:checked');
+        const err = document.getElementById('snacks-error');
+        if (picked) { err?.classList.add('hidden'); return true; }
+        err?.classList.remove('hidden');
+        subSnacks?.querySelector('input[name="snacks_choice"]')?.focus();
+        return false;
+      }
+      case 'CART RENTAL': {
+        const picked = subRental?.querySelector('input[name="rental_choice"]:checked');
+        const err = document.getElementById('rental-error');
+        if (picked) { err?.classList.add('hidden'); return true; }
+        err?.classList.remove('hidden');
+        subRental?.querySelector('input[name="rental_choice"]')?.focus();
+        return false;
+      }
+      default:
+        return true;
+    }
+  }
+
+  // =========================
+  // Submit via fetch (no redirect)
+  // =========================
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (!atLeastOneDrinkChecked()) {
-      drinksError?.classList.remove('hidden');
-      drinksGroup?.querySelector('input[type="checkbox"]')?.focus();
-      return;
-    } else {
-      drinksError?.classList.add('hidden');
-    }
+    // NEW: validate package + sub-options
+    if (!validatePackageAndSubs()) return;
 
     try {
       const res = await fetch(form.action, {
@@ -484,6 +568,7 @@
       });
       if (res.ok) {
         form.reset();
+        hideAllSub(); // hide subs after reset
         showModal();
       } else {
         const data = await res.json().catch(() => ({}));
