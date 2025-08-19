@@ -30,7 +30,6 @@
       <div class="container mx-auto flex flex-wrap items-center md:flex-no-wrap">
         <div class="mr-4 md:mr-8">
           <a href="../index.html"><img src="./assets/logo1.png" alt="Kup Shup" style="height:55px;"></a>
-          <!-- <a href="../index.html" class="text-2xl font-signika font-bold">KUP SHUP</a> -->
         </div>
         <div class="ml-auto md:hidden flex items-center justify-start">
           <button onclick="menuToggle()" @click="open = !open"
@@ -66,11 +65,6 @@
                 <span class="hidden md:block h-0.5 bg-black dark:bg-white"></span>
               </a>
             </li>
-            <!-- <li class="group transition duration-300">
-              <a href="about_me.html" class="font-signika text-2xl">ABOUT
-                <span class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
-              </a>
-            </li> -->
             <li class="group transition duration-300">
               <a href="contact.html" class="font-signika text-2xl">BOOKING
                 <span
@@ -83,71 +77,44 @@
       </div>
     </nav>
   </header>
+
   <!-- Content -->
   <div class="container mx-auto">
-    <h1 class="text-4xl pt-10 pb-8" ><b>PACKAGES</b></h1>
-   
-<div class="w-full px-4">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-center items-center gap-6 overflow-hidden">
-    <img src="./assets/menu1.png" alt="Menu 1" class="w-full md:w-[600px] h-auto" style="margin: right -30px;" />
-    <img src="./assets/menu2.png" alt="Menu 2" class="w-full md:w-[600px] h-auto" style="margin: left -30px;" />
-  </div>
-</div>
+    <h1 class="text-4xl pt-10 pb-8"><b>PACKAGES</b></h1>
 
-   <!--  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 place-items-center">
-      <div>
-      
-       
-          class="bg-white dark:bg-neutral-900 p-5 pb-28 m-6 md:m-12 shadow-lg border border-gray-100 dark:border-neutral-800">
-          <img src="./assets/menu1.png" alt="Menu 1" style="float:left; width:300px; height: auto;" />
-          
-        
-     </div>
-     <div>
-        
-          class="bg-white dark:bg-neutral-900 p-5 pb-28 m-6 md:m-12 shadow-lg border border-gray-100 dark:border-neutral-800">
-          <img src="./assets/menu2.png" alt="Menu 2" style="width: 300px; height: auto;" />
+    <!-- Updated responsive image layout -->
+    <section class="w-full px-0">
+      <div class="max-w-6xl mx-auto grid gap-6 md:grid-cols-2 place-items-center">
+        <figure class="w-full">
+          <img
+            src="./assets/menu1.png"
+            alt="Mini Masala & Garma Gathering packages"
+            class="w-full h-auto rounded-2xl shadow-xl object-contain max-h-[90vh]"
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        </figure>
+
+        <figure class="w-full">
+          <img
+            src="./assets/menu2.png"
+            alt="Karak Mehfil & Royal Elaichi packages"
+            class="w-full h-auto rounded-2xl shadow-xl object-contain max-h-[90vh]"
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        </figure>
       </div>
-        
-
-      </div> -->
-      <!-- <section class="font-normal text-center text-base md:text-start mx-3 col-span-2 md:col-span-1 my-auto">
-        <div class="block md:hidden">
-          <p class="text-3xl font-serif font-bold mb-1">Hello there,</p>
-          <p class="text-3xl font-serif font-bold mb-6">I'm Sophia <span class="animate-wave">👋</span></p>
-        </div>
-        <p class="hidden md:block text-3xl font-serif font-bold mb-6">Hello there, I'm Sophia
-          <span class="animate-wave">👋</span>
-        </p>
-        <p class="mb-4">
-          I'm a San Francisco-based photographer with over 6 years of
-          experience in capturing unforgettable moments. I specialize in
-          creating images that are both visually striking and emotionally
-          impactful, and I have developed a signature style that blends
-          natural beauty with vibrant colors and bold compositions.
-        </p>
-        <p class="mb-4">
-          When I'm not behind the camera, you can find me exploring the city's
-          diverse neighborhoods, trying out new restaurants, or spending time
-          with my family and friends. I believe that every moment is an
-          opportunity to experience something new and to create memories that
-          will last a lifetime.
-        </p>
-        <p>
-          Thank you for taking the time to learn a little bit about me and my
-          work. If you're interested in collaborating or would like to see
-          more of my portfolio, please don't hesitate to get in touch. Let's
-          work together to bring your vision to life!
-        </p>
-      </section> -->
-    </div>
+    </section>
   </div>
-  <!-- Footer -->
+  
+   <!-- Footer -->
   <footer>
     <div class="max-w-screen-xl py-16 mx-auto">
       <div class="grid grid-cols-1 gap-8 text-center mx-auto">
         <div>
-          <!-- <p class="font-signika"><b>KUP SHUP</b></p> -->
           <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
             follow us:<br />
           </p>
